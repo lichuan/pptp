@@ -3,10 +3,12 @@
 #yum -y update
 yum -y install epel-release
 yum -y install firewalld net-tools ppp pptpd
+
 # 开启内核转发
 echo 'net.ipv4.ip_forward = 1' >> /etc/sysctl.conf
 sysctl -p
-#添加pptp的登录账号密码，账号是admin 密码admin888
+
+#添加pptp的登录账号密码
 echo "$1 * $2 *" >> /etc/ppp/chap-secrets
 
 #开启虚拟IP分配
@@ -17,7 +19,6 @@ END
 
 #添加 pptp 的DNS解析服务器 格式：ms-dns 8.8.8.8 ，ip改为你自己的可以了
 cat >>/etc/ppp/options.pptpd <<END
-# ms-dns 202.12.27.33
 ms-dns 8.8.8.8
 ms-dns 8.8.4.4
 END
